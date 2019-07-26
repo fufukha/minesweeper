@@ -1,9 +1,7 @@
 const initialState = {
-    board: {
         rows: null,
         columns: null,
         mines: null
-    }
 }
 
 const boardReducer = (state=initialState, action) => {
