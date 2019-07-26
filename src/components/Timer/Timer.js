@@ -5,7 +5,7 @@ import useEffectSkipFirst from './useEffectSkipFirst';
 import './timer.css';
 
 const Timer = ({startTime, isRunning}) => {
-    const [ timerText, setTimerText ] = useState('');
+    const [ timerText, setTimerText ] = useState('000');
     const [ delay, setDelay ] = useState(500);
 
     useInterval(() => {
