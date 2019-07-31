@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import useEffectSkipFirst from './useEffectSkipFirst';
+import './flagCounter.css'
 
 const FlagCounter = ({ flags, mines }) => {
     const numberMinesText = threeDigitStr(mines)
@@ -13,7 +14,7 @@ const FlagCounter = ({ flags, mines }) => {
     }, [flags, mines])
 
     return (
-    <div className='scoreBoard-numbers'>888
+    <div className='flagCounter'>888
       <div>{flagCounterText}</div>
     </div>
     );
