@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import useEffectSkipFirst from './useEffectSkipFirst';
 import './flagCounter.css'
-
+//TODO fix negative numbers
 const FlagCounter = ({ flags, mines }) => {
     const numberMinesText = threeDigitStr(mines)
     const [ flagCounterText, setFlagCounterText ] = useState(numberMinesText);
