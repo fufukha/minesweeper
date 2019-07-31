@@ -7,7 +7,7 @@
     --redDarker: #480000;
 }
 
-.scoreBoard-numbers {
+.timer {
   background: var(--redDarker);
   border: 3px inset var(--redMedium);
   color: var(--redDark);
@@ -19,7 +19,7 @@
   text-align: center;
   line-height: 25px;
 }
-.scoreBoard-numbers > div {
+.timer > div {
     color: var(--red);
     position: absolute;
     top: 0;

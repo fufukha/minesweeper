@@ -21,13 +21,13 @@ const Timer = ({startTime, isRunning}) => {
     }, [isRunning])
 
     return (
-    <div className='scoreBoard-numbers'>888
+    <div className='timer'>888
       <div>{timerText}</div>
     </div>
     );
 }
 
-const getTimerText = (initialTime) => {
+const getTimerText = initialTime => {
     const time = elapsedTime(initialTime)
     return  threeDigitStr(time);
 }
