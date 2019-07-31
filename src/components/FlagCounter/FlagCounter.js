@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import useEffectSkipFirst from './useEffectSkipFirst';
 
 const FlagCounter = ({ flags, mines }) => {
     const numberMinesText = threeDigitStr(mines)
     const [ flagCounterText, setFlagCounterText ] = useState(numberMinesText);
 
-    useEffect(() => {
-        const flagCount = mines - numberObjectKeys(flags);
+    useEffectSkipFirst(() => {
+        const flagCount = numberObjectKeys(mines) - numberObjectKeys(flags);
         const text = threeDigitStr(flagCount);
         setFlagCounterText(text)
     }, [flags, mines])
