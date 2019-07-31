@@ -1,91 +1,38 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
-import useEffectSkipFirst from './useEffectSkipFirst';
 import './tile.css';
 
-const Tile = ({ row, column, mines, toggleFlag, displayTile }) => {
-    const [ className, setClassName ] = useState('tile hide');
-    const [ isDisplayed, setIsDisplayed ] = useState(false);
-    const [ isFlagged, setIsFlagged ] = useState(false);
-    const [ tileValue, setTileValue ] = useState('');
-
-    useEffectSkipFirst(() => {
-        setTileValue(isFlagged ? '⛳️' : '')
-    }, [isFlagged])
-
-    useEffectSkipFirst(() => {
-        if (isDisplayed) {
-            if(mines[row] && mines[row][column]) {
-                setTileValue('💣')
-            } else {
-                const value = peripheralCount(mines, row, column) || '';
-                setTileValue(value);
-            }
-            setClassName('tile display');
-        }
-    }, [column, isDisplayed, mines, row])
-
-
-    const handleOnClick = (event) => {
-        event.preventDefault();
-
-        if(isDisplayed === true) {
-            preventClick(event);
-        } else {
-            displayTile(row, column);
-            setIsDisplayed(true);
-        }
-    }
-
-    const handleOnContextMenu = (event) => {
-        event.preventDefault();
-
-        if (isDisplayed) {
-            preventClick(event)
-        } else {
-            toggleFlag(row, column)
-            console.log(`flagged state is ${isFlagged}`)
-            setIsFlagged(!isFlagged);
-            isFlagged == true ? setTileValue('⛳️') : setTileValue('');
-        }
-    }
-
+const Tile = ({ data, onClick, onRightClick }) => {
     return  (
         <div
-            className={className}
-            onClick={(e) => handleOnClick(e)}
-            onContextMenu={(e) => handleOnContextMenu(e)}>
-            {tileValue}
+            className={`tile ${getClassName(data)}`}
+            onClick={onClick}
+            onContextMenu={onRightClick}>
+            {getValue(data)}
         </div>
     )
 }
 
-const preventClick = (event) => {
-    event.preventDefault()
-    return false
+const getClassName = (data) => {
+    if(data.status === 'hidden' || data.status === 'flagged') {
+        return 'hide'
+    } else {
+        return 'display'
+    }
 }
 
-const peripheralCount = (mines, i, j) => {
-  let count = 0;
-
-  if(mines[i - 1] && mines[i - 1][j]) count++
-  if(mines[i + 1] && mines[i + 1][j]) count++
-  if(mines[i] && mines[i][j - 1]) count++
-  if(mines[i] && mines[i][j + 1]) count++
-  if(mines[i - 1] && mines[i - 1][j - 1]) count++
-  if(mines[i - 1] && mines[i - 1][j + 1]) count++
-  if(mines[i + 1] && mines[i + 1][j - 1]) count++
-  if(mines[i + 1] && mines[i + 1][j + 1]) count++
-
-  return count;
+const getValue = (data) => {
+    const { status, peripheralCount } = data;
+    if(status === 'flagged') return '⛳️';
+    if(status === 'displayBomb') return '💣';
+    if(status === 'displayCount') return peripheralCount;
+    if(status === 'hidden') return '';
 }
 
 export default Tile;
 
 Tile.propTypes = {
-  row: PropTypes.number.isRequired,
-  column: PropTypes.number.isRequired,
-  mines: PropTypes.object.isRequired,
-  toggleFlag: PropTypes.func.isRequired,
-  displayTile: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onRightClick: PropTypes.func.isRequired,
 };
