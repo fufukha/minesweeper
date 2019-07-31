@@ -25,11 +25,11 @@ const tileReducer = (state=initialState, action) => {
     return state
 }
 
-function updateFlags(state, i, j) {
-    if(state[i] && state[i][j]) {
-        return deleteNestedProp(state, i, j)
+function updateFlags(state, row, column) {
+    if(state[row] && state[row][column]) {
+        return deleteNestedProp(state, row, column)
     } else {
-        return addNestedProp(state, i, j, true)
+        return addNestedProp(state, row, column, true)
     }
 }
 
