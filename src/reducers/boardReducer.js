@@ -9,10 +9,10 @@ const boardReducer = (state=initialState, action) => {
     switch (action.type) {
         case 'INITIALIZE_BOARD':
             return {
-                ...state,
-                rows: state.rows,
-                columns: state.columns,
-                mines: state.mines
+                ...state.board,
+                rows: action.payload.rows,
+                columns: action.payload.columns,
+                mines: action.payload.mines
             }
         case 'CONFIGURE_BOARD':
             return {
