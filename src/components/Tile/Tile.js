@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import useEffectSkipFirst from './useEffectSkipFirst';
 import './tile.css';
 
-const Tile = ({ row, column, mines, toggleFlag, displayTile }) => {
-
+const Tile = ({ row, column, mines, isRunning, startGame, toggleFlag, displayTile }) => {
     const [ className, setClassName ] = useState('tile hide');
     const [ isDisplayed, setIsDisplayed ] = useState(false);
     const [ isFlagged, setIsFlagged ] = useState(false);
@@ -36,6 +35,8 @@ const Tile = ({ row, column, mines, toggleFlag, displayTile }) => {
     const handleOnClick = (event) => {
         event.preventDefault();
 
+        if(isRunning === false) startGame();
+
         if(isDisplayed === true) {
             preventClick(event);
         } else {
@@ -46,6 +47,9 @@ const Tile = ({ row, column, mines, toggleFlag, displayTile }) => {
 
     const handleOnContextMenu = (event) => {
         event.preventDefault();
+        
+        if(isRunning === false) startGame();
+
         if (isDisplayed) {
             preventClick(event)
         } else {
@@ -94,6 +98,8 @@ Tile.propTypes = {
  // displayed: PropTypes.object.isRequired,
   mines: PropTypes.object.isRequired,
  // flagged: PropTypes.object.isRequired,
+  isRunning: PropTypes.bool.isRequired,
+  startGame: PropTypes.func.isRequired,
   toggleFlag: PropTypes.func.isRequired,
   displayTile: PropTypes.func.isRequired,
 };
