@@ -1,4 +1,3 @@
-
 export const toggleFlag = (i, j) => {
     return {
         type: 'TOGGLE_FLAG',
