@@ -4,22 +4,19 @@ const initialState = {
 }
 
 const statusReducer = (state=initialState, action) => {
-    switch (action.type) {
-        case 'START_GAME': {
+    if(['TOGGLE_FLAG', 'DISPLAY_TILE'].includes(action.type)) {
+        if(state.startTime) {
+            return state;
+        } else {
             return {
                 ...state,
-                startTime: action.payload,
+                startTime: new Date.getTime(),
                 isRunning: true,
             }
         }
-        case 'END_GAME': {
-            return {
-                ...state,
-                isRunning: false
-            }
-        }
+    } else {
+        return state;
     }
-    return state
 }
 
 export default statusReducer;

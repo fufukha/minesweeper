@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { initializeBoard } from '../../actions/boardActions';
 import { toggleFlag as toggleFlagAction, displayTile as displayTileAction } from '../../actions/tileActions';
-import { startGame as startGameAction } from '../../actions/statusActions';
 import Timer from '../Timer/Timer';
 import FlagCounter from '../FlagCounter/FlagCounter';
 import Tile from '../Tile/Tile';
@@ -26,11 +25,6 @@ const App = () => {
         [dispatch]
     );
 
-    const startGame = useCallback(
-        () => dispatch(startGameAction()),
-        [dispatch]
-    );
-
     const { rows, columns } = board;
     const tiles = [...Array(rows)]
 		.map((row, i) => [...Array(columns)]
@@ -39,13 +33,10 @@ const App = () => {
                 row={i}
                 column={j}
                 mines={mines}
-                isRunning={isRunning}
-                startGame={startGame}
                 toggleFlag={toggleFlag}
                 displayTile={displayTile} />
             )
         )
-
 
     useEffect( () => {
         dispatch(initializeBoard());
