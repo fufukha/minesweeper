@@ -42,7 +42,7 @@ const threeDigitStr = number => {
 
  FlagCounter.propTypes = {
    flags: PropTypes.object.isRequired,
-   mines: PropTypes.number.isRequired
+   mines: PropTypes.object.isRequired
 };
 
 export default FlagCounter;

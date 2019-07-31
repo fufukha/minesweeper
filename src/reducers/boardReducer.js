@@ -1,7 +1,7 @@
 const initialState = {
-    rows: 4,
-    columns: 4,
-    mines: 4
+        rows: null,
+        columns: null,
+        mines: {}
 }
 
 
