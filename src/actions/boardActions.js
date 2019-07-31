@@ -1,3 +1,9 @@
+const defaultConfig = {
+    rows: 4,
+    columns: 4,
+    numOfMines: 4
+}
+
 export const configureBoard = (config) => {
     return {
         type: 'CONFIGURE_BOARD',
@@ -9,9 +15,14 @@ export const configureBoard = (config) => {
     }
 }
 
-export const initializeBoard = () => {
+export const initializeBoard = (config=defaultConfig) => {
     return {
-        type: 'INITIALIZE_BOARD'
+        type: 'INITIALIZE_BOARD',
+        payload: {
+            rows: config.rows,
+            columns: config.columns,
+            mines: randomIndices(config.rows, config.columns, config.numOfMines)
+        }
     }
 }
 
