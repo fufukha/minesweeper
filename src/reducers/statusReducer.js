@@ -10,7 +10,7 @@ const statusReducer = (state=initialState, action) => {
         } else {
             return {
                 ...state,
-                startTime: new Date.getTime(),
+                startTime: new Date().getTime(),
                 isRunning: true,
             }
         }
