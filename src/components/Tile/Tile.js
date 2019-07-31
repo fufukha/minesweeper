@@ -9,18 +9,12 @@ const Tile = ({ row, column, mines, isRunning, startGame, toggleFlag, displayTil
     const [ isFlagged, setIsFlagged ] = useState(false);
     const [ tileValue, setTileValue ] = useState('');
 
-    // useEffect(() =>{
-    //     setIsDisplayed(displayed[row] && displayed[row][column])
-    //     setIsFlagged(flagged[row] && flagged[row][column])
-    // }, [column, displayed, flagged, isFlagged, isDisplayed, row])
-
     useEffectSkipFirst(() => {
         setTileValue(isFlagged ? '⛳️' : '')
     }, [isFlagged])
 
     useEffectSkipFirst(() => {
         if (isDisplayed) {
-            console.log(row, column)
             if(mines[row] && mines[row][column]) {
                 setTileValue('💣')
             } else {
@@ -93,11 +87,9 @@ const peripheralCount = (mines, i, j) => {
 export default Tile;
 
 Tile.propTypes = {
-  row: PropTypes.number,
-  column: PropTypes.number,
- // displayed: PropTypes.object.isRequired,
+  row: PropTypes.number.isRequired,
+  column: PropTypes.number.isRequired,
   mines: PropTypes.object.isRequired,
- // flagged: PropTypes.object.isRequired,
   isRunning: PropTypes.bool.isRequired,
   startGame: PropTypes.func.isRequired,
   toggleFlag: PropTypes.func.isRequired,
