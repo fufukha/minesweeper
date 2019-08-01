@@ -23,6 +23,14 @@ const App = () => {
         )
     }, true);
 
+    const isLoseState = !Object.keys(mines).reduce((acc, i) => {
+        return acc && (
+            Object.keys(mines[i]).reduce((acc2, j) => {
+                return acc2 && (valueAt(displayed, i, j) === false)
+            }, true)
+        )
+    }, true)
+
     const tiles = [...Array(rows)]
 		.map((row, i) => [...Array(columns)]
 			.map((column, j) => {
@@ -39,7 +47,7 @@ const App = () => {
                         data={getData(mines, flagged, displayed, i, j)}
                         onClick={displayTile}
                         onRightClick={toggleFlag}
-                        isDisabled={isWinState} />
+                        isDisabled={isWinState || isLoseState} />
                 )
             })
         )
@@ -52,7 +60,7 @@ const App = () => {
       <div>
         <Timer
             startTime={startTime}
-            isRunning={hasStarted && !isWinState}/>
+            isRunning={hasStarted && !isWinState && !isLoseState}/>
         <FlagCounter
             flags={flagged}
             mines={mines}/>
