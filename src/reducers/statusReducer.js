@@ -1,6 +1,6 @@
 const initialState = {
     startTime: null,
-    isRunning: false
+    hasStarted: false
 }
 
 const statusReducer = (state=initialState, action) => {
@@ -11,7 +11,7 @@ const statusReducer = (state=initialState, action) => {
             return {
                 ...state,
                 startTime: new Date().getTime(),
-                isRunning: true,
+                hasStarted: true,
             }
         }
     } else {

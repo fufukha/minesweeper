@@ -2,12 +2,22 @@ import React from 'react';
 import PropTypes from "prop-types";
 import './tile.css';
 
-const Tile = ({ data, onClick, onRightClick }) => {
+const Tile = ({ data, onClick, onRightClick, isDisabled }) => {
+    const handleOnClick = (e) => {
+        e.preventDefault();
+        !isDisabled && onClick();
+    }
+
+    const handleOnRightClick = (e) => {
+        e.preventDefault();
+        !isDisabled && onRightClick();
+    }
+
     return  (
         <div
             className={`tile ${getClassName(data)}`}
-            onClick={onClick}
-            onContextMenu={onRightClick}>
+            onClick={handleOnClick}
+            onContextMenu={handleOnRightClick}>
             {getValue(data)}
         </div>
     )
@@ -35,4 +45,5 @@ Tile.propTypes = {
   data: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
   onRightClick: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired
 };

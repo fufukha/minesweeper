@@ -9,21 +9,27 @@ import './app.css';
 
 const App = () => {
     const dispatch = useDispatch();
-    const { startTime, isRunning } = useSelector(state => state.status);
+    const { startTime, hasStarted } = useSelector(state => state.status);
     const { flagged, displayed } = useSelector(state => state.tiles);
     const mines = useSelector(state => state.board.mines);
     const board = useSelector(state => state.board);
-
     const { rows, columns } = board;
+
+    const isWinState = [...Array(rows)].reduce((acc, cv, i) => {
+        return acc && (
+            [...Array(columns)].reduce((acc2, cv2, j) => {
+                return acc2 && (valueAt(mines, i, j) === valueAt(flagged, i, j))
+            }, true)
+        )
+    }, true);
+
     const tiles = [...Array(rows)]
 		.map((row, i) => [...Array(columns)]
 			.map((column, j) => {
-                const toggleFlag = (e) => {
-                    e.preventDefault();
+                const toggleFlag = () => {
                     dispatch(toggleFlagAction(i, j));
                 }
-                const displayTile = (e) => {
-                    e.preventDefault();
+                const displayTile = () => {
                     dispatch(displayTileAction(i, j));
                 }
 
@@ -32,7 +38,8 @@ const App = () => {
                         key={i*10 + j}
                         data={getData(mines, flagged, displayed, i, j)}
                         onClick={displayTile}
-                        onRightClick={toggleFlag} />
+                        onRightClick={toggleFlag}
+                        isDisabled={isWinState} />
                 )
             })
         )
@@ -45,7 +52,7 @@ const App = () => {
       <div>
         <Timer
             startTime={startTime}
-            isRunning={isRunning}/>
+            isRunning={hasStarted && !isWinState}/>
         <FlagCounter
             flags={flagged}
             mines={mines}/>
@@ -92,3 +99,5 @@ const getData = (mines, flagged, displayed, row, column) => {
     }
     return data
 }
+
+const valueAt = (object, i, j) =>  Boolean(object[i] && object[i][j]);
