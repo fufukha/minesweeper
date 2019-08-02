@@ -14,6 +14,7 @@ const App = () => {
     const { flagged, displayed } = useSelector(state => state.tiles);
     const mines = useSelector(state => state.board.mines);
     const board = useSelector(state => state.board);
+    const lastClickedTile = useSelector(state => state.lastClickedTile);
     const { rows, columns } = board;
 
     const isWinState = [...Array(rows)].reduce((acc, cv, i) => {
@@ -45,7 +46,7 @@ const App = () => {
                 return (
                     <Tile
                         key={i*10 + j}
-                        data={getData(mines, flagged, displayed, i, j, isLoseState)}
+                        data={getData(mines, flagged, displayed, i, j, isLoseState, lastClickedTile)}
                         onClick={displayTile}
                         onRightClick={toggleFlag}
                         isDisabled={isWinState || isLoseState} />
@@ -89,11 +90,15 @@ const peripheralCount = (mines, i, j) => {
   return count;
 }
 
-const getData = (mines, flagged, displayed, row, column, isLoseState) => {
+const getData = (mines, flagged, displayed, row, column, isLoseState, lastClickedTile) => {
     let data = {}
     if(valueAt(displayed, row, column)) {
         if(valueAt(mines, row, column)) {
-            data.status = 'displayBomb';
+            if(lastClickedTile.row === row && lastClickedTile.column === column && isLoseState) {
+                data.status = 'displayRedBomb';
+            } else {
+                data.status = 'displayBomb';
+            }
         } else {
             data.status = 'displayCount';
         }
@@ -104,7 +109,7 @@ const getData = (mines, flagged, displayed, row, column, isLoseState) => {
                 data.status = 'displayFalseFlag'
             }
         } else if(valueAt(mines, row, column) && isLoseState) {
-            data.status = 'displayBomb';
+                data.status = 'displayBomb';
         } else {
             data.status = 'hidden';
         }

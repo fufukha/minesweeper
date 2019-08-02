@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import './tile.css';
+import classnames from 'classnames';
 
 const Tile = ({ data, onClick, onRightClick, isDisabled }) => {
     const handleOnClick = (e) => {
@@ -15,7 +16,7 @@ const Tile = ({ data, onClick, onRightClick, isDisabled }) => {
 
     return  (
         <div
-            className={`tile ${getClassName(data)}`}
+            className={classnames('tile', getClassName(data), {red: data.status === 'displayRedBomb'})}
             onClick={handleOnClick}
             onContextMenu={handleOnRightClick}>
             {getValue(data)}
@@ -34,7 +35,7 @@ const getClassName = (data) => {
 const getValue = (data) => {
     const { status, peripheralCount } = data;
     if(status === 'flagged') return '⛳️';
-    if(status === 'displayBomb') return '💣';
+    if(status === 'displayBomb' || status === 'displayRedBomb') return '💣';
     if(status === 'displayCount') return peripheralCount ? peripheralCount : '';
     if(status === 'displayFalseFlag') return '🚫';
     if(status === 'hidden') return '';

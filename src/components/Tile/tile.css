@@ -26,3 +26,7 @@
     border-bottom: 0.25px solid var(--darkAccent);
     border-right: 0.25px solid var(--darkAccent);
 }
+
+.red {
+    background: var(--red);
+}
