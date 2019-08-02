@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { initializeBoard } from '../../actions/boardActions';
-import { toggleFlag as toggleFlagAction, displayTile as displayTileAction } from '../../actions/tileActions';
+import {
+    toggleFlag as toggleFlagAction,
+    displayTile as displayTileAction,
+    pressTile as pressTileAction,
+    releaseTile as releaseTileAction
+} from '../../actions/tileActions';
 import Timer from '../Timer/Timer';
 import Face from '../Face/Face';
 import FlagCounter from '../FlagCounter/FlagCounter';
@@ -14,7 +19,10 @@ const App = () => {
     const { flagged, displayed } = useSelector(state => state.tiles);
     const mines = useSelector(state => state.board.mines);
     const board = useSelector(state => state.board);
+    const isTilePressed = useSelector(state => state.isTilePressed);
     const lastClickedTile = useSelector(state => state.lastClickedTile);
+    const pressTile = () => dispatch(pressTileAction());
+    const releaseTile = () => dispatch(releaseTileAction());
     const { rows, columns } = board;
 
     const isWinState = [...Array(rows)].reduce((acc, cv, i) => {
@@ -49,6 +57,8 @@ const App = () => {
                         data={getData(mines, flagged, displayed, i, j, isLoseState, lastClickedTile)}
                         onClick={displayTile}
                         onRightClick={toggleFlag}
+                        onMouseDown={pressTile}
+                        onMouseUp={releaseTile}
                         isDisabled={isWinState || isLoseState} />
                 )
             })
@@ -59,12 +69,12 @@ const App = () => {
     }, [dispatch]);
 
     return (
-      <div>
+      <div onMouseUp={releaseTile}>
         <Timer
             startTime={startTime}
             isRunning={hasStarted && !isWinState && !isLoseState}/>
         <Face
-            icon={getFaceExpression(isWinState, isLoseState)}/>
+            icon={getFaceExpression(isWinState, isLoseState, isTilePressed)}/>
         <FlagCounter
             flags={flagged}
             mines={mines}/>
@@ -123,8 +133,9 @@ const getData = (mines, flagged, displayed, row, column, isLoseState, lastClicke
 
 const valueAt = (object, i, j) =>  Boolean(object[i] && object[i][j]);
 
-const getFaceExpression = (isWinState, isLoseState) => {
+const getFaceExpression = (isWinState, isLoseState, isTilePressed) => {
     if(isWinState) return '😎';
-    if(isLoseState) return '😵'
+    if(isLoseState) return '😵';
+    if(isTilePressed) return '😮'
     return '🙂'
 }

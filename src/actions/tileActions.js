@@ -17,3 +17,15 @@ export const displayTile = (i, j) => {
         }
     }
 }
+
+export const pressTile = () => {
+    return {
+        type: 'PRESS_TILE'
+    }
+}
+
+export const releaseTile = () => {
+    return {
+        type: 'RELEASE_TILE'
+    }
+}

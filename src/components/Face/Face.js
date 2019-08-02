@@ -10,5 +10,5 @@ const Face = ({ icon }) => {
 export default Face;
 
 Face.propTypes = {
-  icon: PropTypes.func.isRequired
+  icon: PropTypes.string.isRequired
 }

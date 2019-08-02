@@ -3,12 +3,14 @@ import board from './boardReducer';
 import status from './statusReducer';
 import tiles from './tileReducer';
 import lastClickedTile from './lastClickedTileReducer';
+import isTilePressed from './tilePressedReducer';
 
 const rootReducer = combineReducers({
     board,
     status,
     tiles,
-    lastClickedTile
+    lastClickedTile,
+    isTilePressed
 });
 
 export default rootReducer;

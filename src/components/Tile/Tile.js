@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import './tile.css';
 import classnames from 'classnames';
 
-const Tile = ({ data, onClick, onRightClick, isDisabled }) => {
+const Tile = ({ data, onClick, onRightClick, onMouseDown, onMouseUp, isDisabled }) => {
     const handleOnClick = (e) => {
         e.preventDefault();
         !isDisabled && onClick();
@@ -18,7 +18,9 @@ const Tile = ({ data, onClick, onRightClick, isDisabled }) => {
         <div
             className={classnames('tile', getClassName(data), {red: data.status === 'displayRedBomb'})}
             onClick={handleOnClick}
-            onContextMenu={handleOnRightClick}>
+            onContextMenu={handleOnRightClick}
+            onMouseDown={onMouseDown}
+            onMouseUp={onMouseUp}>
             {getValue(data)}
         </div>
     )
@@ -47,5 +49,7 @@ Tile.propTypes = {
   data: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
   onRightClick: PropTypes.func.isRequired,
+  onMouseDown: PropTypes.func.isRequired,
+  onMouseUp: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool.isRequired
 };
