@@ -35,7 +35,7 @@ const getValue = (data) => {
     const { status, peripheralCount } = data;
     if(status === 'flagged') return '⛳️';
     if(status === 'displayBomb') return '💣';
-    if(status === 'displayCount') return peripheralCount;
+    if(status === 'displayCount') return peripheralCount ? peripheralCount : '';
     if(status === 'hidden') return '';
 }
 
