@@ -1,7 +1,7 @@
 const defaultConfig = {
-    rows: 4,
-    columns: 4,
-    numOfMines: 4
+    rows: 9,
+    columns: 9,
+    numOfMines:10
 }
 
 export const configureBoard = (config) => {
