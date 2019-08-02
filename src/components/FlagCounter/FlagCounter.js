@@ -34,7 +34,7 @@ const threeDigitStr = number => {
         return text;
     } else if ( number < -99) {
         return '-99';
-    } else if (number > 0 && number < 1000) {
+    } else if (number > -1 && number < 1000) {
         const text = number.toString().padStart(3,0);
         return text;
     } else if (number > 999) {
