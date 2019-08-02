@@ -100,6 +100,9 @@ const getData = (mines, flagged, displayed, row, column, isLoseState) => {
     } else {
         if(valueAt(flagged, row, column)) {
             data.status = 'flagged';
+            if(!valueAt(mines, row, column) && isLoseState) {
+                data.status = 'displayFalseFlag'
+            }
         } else if(valueAt(mines, row, column) && isLoseState) {
             data.status = 'displayBomb';
         } else {
