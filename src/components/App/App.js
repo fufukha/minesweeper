@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { initializeBoard } from '../../actions/boardActions';
 import { toggleFlag as toggleFlagAction, displayTile as displayTileAction } from '../../actions/tileActions';
 import Timer from '../Timer/Timer';
+import Face from '../Face/Face';
 import FlagCounter from '../FlagCounter/FlagCounter';
 import Tile from '../Tile/Tile';
 import './app.css';
@@ -61,6 +62,8 @@ const App = () => {
         <Timer
             startTime={startTime}
             isRunning={hasStarted && !isWinState && !isLoseState}/>
+        <Face
+            icon={getFaceExpression(isWinState, isLoseState)}/>
         <FlagCounter
             flags={flagged}
             mines={mines}/>
@@ -111,3 +114,9 @@ const getData = (mines, flagged, displayed, row, column, isLoseState) => {
 }
 
 const valueAt = (object, i, j) =>  Boolean(object[i] && object[i][j]);
+
+const getFaceExpression = (isWinState, isLoseState) => {
+    if(isWinState) return '😎';
+    if(isLoseState) return '😵'
+    return '🙂'
+}
