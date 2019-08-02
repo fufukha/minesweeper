@@ -44,7 +44,7 @@ const App = () => {
                 return (
                     <Tile
                         key={i*10 + j}
-                        data={getData(mines, flagged, displayed, i, j)}
+                        data={getData(mines, flagged, displayed, i, j, isLoseState)}
                         onClick={displayTile}
                         onRightClick={toggleFlag}
                         isDisabled={isWinState || isLoseState} />
@@ -86,17 +86,19 @@ const peripheralCount = (mines, i, j) => {
   return count;
 }
 
-const getData = (mines, flagged, displayed, row, column) => {
+const getData = (mines, flagged, displayed, row, column, isLoseState) => {
     let data = {}
-    if(displayed[row] && displayed[row][column]) {
-        if(mines[row] && mines[row][column]) {
+    if(valueAt(displayed, row, column)) {
+        if(valueAt(mines, row, column)) {
             data.status = 'displayBomb';
         } else {
             data.status = 'displayCount';
         }
     } else {
-        if(flagged[row] && flagged[row][column]) {
+        if(valueAt(flagged, row, column)) {
             data.status = 'flagged';
+        } else if(valueAt(mines, row, column) && isLoseState) {
+            data.status = 'displayBomb';
         } else {
             data.status = 'hidden';
         }
