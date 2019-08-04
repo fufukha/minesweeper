@@ -58,9 +58,7 @@ const App = () => {
       <div onMouseUp={releaseTile}>
         <Timer/>
         <Face />
-        <FlagCounter
-            flags={flagged}
-            mines={mines}/>
+        <FlagCounter />
         <div className='tilesBoard_default'>{tiles}</div>
       </div>
     );

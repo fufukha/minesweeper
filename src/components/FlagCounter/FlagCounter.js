@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import useEffectSkipFirst from './useEffectSkipFirst';
 import './flagCounter.css'
 
-const FlagCounter = ({ flags, mines }) => {
+const FlagCounter = () => {
+    const flags = useSelector(state => state.tiles.flagged);
+    const mines = useSelector(state => state.board.mines);
     const numberMinesText = threeDigitStr(mines)
     const [ flagCounterText, setFlagCounterText ] = useState(numberMinesText);
 
@@ -41,10 +43,5 @@ const threeDigitStr = number => {
         return '999'
     }
 }
-
- FlagCounter.propTypes = {
-   flags: PropTypes.object.isRequired,
-   mines: PropTypes.object.isRequired
-};
 
 export default FlagCounter;
