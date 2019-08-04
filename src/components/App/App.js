@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { initializeBoard } from '../../actions/boardActions';
-import {
-    releaseTile as releaseTileAction
-} from '../../actions/tileActions';
+import { releaseTile as releaseTileAction } from '../../actions/tileActions';
 import Timer from '../Timer/Timer';
 import Face from '../Face/Face';
 import FlagCounter from '../FlagCounter/FlagCounter';
@@ -12,10 +10,8 @@ import './app.css';
 
 const App = () => {
     const dispatch = useDispatch();
-    const board = useSelector(state => state.board);
+    const { rows, columns } = useSelector(state => state.board);
     const releaseTile = () => dispatch(releaseTileAction());
-    const { rows, columns } = board;
-
     const tiles = [...Array(rows)]
 		.map((row, i) => [...Array(columns)]
 			.map((column, j) => {
