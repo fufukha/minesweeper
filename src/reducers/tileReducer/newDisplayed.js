@@ -1,4 +1,4 @@
-const newDisplayed = (displayed, mines, rows, columns, row, column) => {
+const newDisplayed = (displayed, mines, rows, columns, row, column, flagged) => {
     let result =  copy(displayed);
     let queue = [[row, column]];
     let visited = {} // {row: {column: bool}}
@@ -11,7 +11,7 @@ const newDisplayed = (displayed, mines, rows, columns, row, column) => {
         set(result, currentTile, true);
 
         if(peripheralCount(mines, currentTile) === 0){
-            const neighbors = getNeighbors(currentTile, rows, columns, mines, visited);
+            const neighbors = getNeighbors(currentTile, rows, columns, mines, flagged, visited);
             neighbors.forEach((neighbor) => {
                 set(visited, neighbor, true);
                 queue.push(neighbor);
@@ -38,11 +38,11 @@ const set = (object, [i, j], value) => {
     object[i][j] = value
 }
 
-const mineAt = (mines, array) => {
-    return get(mines, array);
-}
+const mineAt = (mines, array) => get(mines, array);
 
-const getNeighbors = ([row, column], rows, columns, mines, visited) => {
+const flagAt = (flagged, array) => get(flagged, array);
+
+const getNeighbors = ([row, column], rows, columns, mines, flagged, visited) => {
   const neighbors = [
     [row - 1, column],
     [row + 1, column],
@@ -60,6 +60,7 @@ const getNeighbors = ([row, column], rows, columns, mines, visited) => {
       if(i > rows - 1) return false;
       if(j > columns - 1) return false;
       if(mineAt(mines, [i, j])) return false;
+      if(flagAt(flagged, [i, j])) return false;
       if(get(visited, [i, j])) return false;
       return true;
   })

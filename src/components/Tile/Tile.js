@@ -6,7 +6,7 @@ import classnames from 'classnames';
 const Tile = ({ data, onClick, onRightClick, onMouseDown, onMouseUp, isDisabled }) => {
     const handleOnClick = (e) => {
         e.preventDefault();
-        !isDisabled && onClick();
+        !isDisabled && data.status === 'hidden' && onClick();
     }
 
     const handleOnRightClick = (e) => {
@@ -14,12 +14,17 @@ const Tile = ({ data, onClick, onRightClick, onMouseDown, onMouseUp, isDisabled 
         !isDisabled && onRightClick();
     }
 
+    const handleOnMouseDown = (e) => {
+        e.preventDefault();
+        onMouseDown();
+    }
+
     return  (
         <div
             className={classnames('tile', getClassName(data), {red: data.status === 'displayRedBomb'})}
             onClick={handleOnClick}
             onContextMenu={handleOnRightClick}
-            onMouseDown={onMouseDown}
+            onMouseDown={handleOnMouseDown}
             onMouseUp={onMouseUp}>
             {getValue(data)}
         </div>

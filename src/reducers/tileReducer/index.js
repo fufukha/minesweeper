@@ -19,7 +19,7 @@ const tileReducer = (state=initialState, action, {mines, rows, columns}) => {
             case 'DISPLAY_TILE':
                 return {
                     ...state,
-                    displayed: newDisplayed(state.displayed, mines, rows, columns, row, column)
+                    displayed: newDisplayed(state.displayed, mines, rows, columns, row, column, state.flagged)
                 }
         }
     }
