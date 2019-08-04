@@ -22,6 +22,8 @@ const FlagCounter = () => {
     );
 }
 
+export default FlagCounter;
+
 const numberObjectKeys = object => {
     let numberOfKeys = 0;
     for (var key in object) {
@@ -43,5 +45,3 @@ const threeDigitStr = number => {
         return '999'
     }
 }
-
-export default FlagCounter;

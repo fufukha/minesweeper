@@ -32,6 +32,8 @@ const Timer = () => {
     );
 }
 
+export default Timer;
+
 const getTimerText = initialTime => {
     const time = elapsedTime(initialTime)
     return  threeDigitStr(time);
@@ -47,5 +49,3 @@ const threeDigitStr = milliseconds => {
     const text = seconds.toString().padStart(3,0);
     return text;
 }
-
-export default Timer;
