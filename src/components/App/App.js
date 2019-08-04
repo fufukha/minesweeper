@@ -25,13 +25,23 @@ const App = () => {
     const releaseTile = () => dispatch(releaseTileAction());
     const { rows, columns } = board;
 
-    const isWinState = [...Array(rows)].reduce((acc, cv, i) => {
+    const isAllMinesFlagged = [...Array(rows)].reduce((acc, cv, i) => {
         return acc && (
             [...Array(columns)].reduce((acc2, cv2, j) => {
                 return acc2 && (valueAt(mines, i, j) === valueAt(flagged, i, j))
             }, true)
         )
     }, true);
+
+    const isAllTilesCleared = [...Array(rows)].reduce((acc, cv, i) => {
+        return acc && (
+            [...Array(columns)].reduce((acc2, cv2, j) => {
+                return acc2 && (valueAt(flagged, i, j) || valueAt(displayed, i, j))
+            }, true)
+        )
+    }, true);
+
+    const isWinState = isAllMinesFlagged && isAllTilesCleared;
 
     const isLoseState = !Object.keys(mines).reduce((acc, i) => {
         return acc && (
