@@ -8,6 +8,7 @@ import {
     releaseTile as releaseTileAction
 } from '../../actions/tileActions';
 import isWinStateSelector from '../../selectors/isWinState';
+import isLoseStateSelector from '../../selectors/isLoseState';
 import Timer from '../Timer/Timer';
 import Face from '../Face/Face';
 import FlagCounter from '../FlagCounter/FlagCounter';
@@ -26,14 +27,7 @@ const App = () => {
     const releaseTile = () => dispatch(releaseTileAction());
     const { rows, columns } = board;
     const isWinState = useSelector(isWinStateSelector);
-
-    const isLoseState = !Object.keys(mines).reduce((acc, i) => {
-        return acc && (
-            Object.keys(mines[i]).reduce((acc2, j) => {
-                return acc2 && (valueAt(displayed, i, j) === false)
-            }, true)
-        )
-    }, true)
+    const isLoseState = useSelector(isLoseStateSelector);
 
     const tiles = [...Array(rows)]
 		.map((row, i) => [...Array(columns)]
