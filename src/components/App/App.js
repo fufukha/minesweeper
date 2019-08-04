@@ -20,7 +20,6 @@ const App = () => {
     const { flagged, displayed } = useSelector(state => state.tiles);
     const mines = useSelector(state => state.board.mines);
     const board = useSelector(state => state.board);
-    const isTilePressed = useSelector(state => state.isTilePressed);
     const lastClickedTile = useSelector(state => state.lastClickedTile);
     const pressTile = () => dispatch(pressTileAction());
     const releaseTile = () => dispatch(releaseTileAction());
@@ -58,8 +57,7 @@ const App = () => {
     return (
       <div onMouseUp={releaseTile}>
         <Timer/>
-        <Face
-            icon={getFaceExpression(isWinState, isLoseState, isTilePressed)}/>
+        <Face />
         <FlagCounter
             flags={flagged}
             mines={mines}/>
@@ -117,10 +115,3 @@ const getData = (mines, flagged, displayed, row, column, isLoseState, lastClicke
 }
 
 const valueAt = (object, i, j) =>  Boolean(object[i] && object[i][j]);
-
-const getFaceExpression = (isWinState, isLoseState, isTilePressed) => {
-    if(isWinState) return '😎';
-    if(isLoseState) return '😵';
-    if(isTilePressed) return '😮'
-    return '🙂'
-}
