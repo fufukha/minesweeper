@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import useInterval from './useInterval';
 import useEffectSkipFirst from './useEffectSkipFirst';
+import isWinStateSelector from '../../selectors/isWinState';
+import isLoseStateSelector from '../../selectors/isLoseState';
 import './timer.css';
 
-const Timer = ({startTime, isRunning}) => {
+const Timer = () => {
+    const { startTime, hasStarted } = useSelector(state => state.status);
+    const isWinState = useSelector(isWinStateSelector);
+    const isLoseState = useSelector(isLoseStateSelector);
     const [ timerText, setTimerText ] = useState('000');
     const [ delay, setDelay ] = useState(500);
 
@@ -17,8 +22,8 @@ const Timer = ({startTime, isRunning}) => {
     }, delay, startTime)
 
     useEffectSkipFirst(() => {
-        if(isRunning === false) setDelay(null)
-    }, [isRunning])
+        if(!(hasStarted && !isWinState && !isLoseState)) setDelay(null)
+    }, [hasStarted, isLoseState, isWinState])
 
     return (
     <div className='timer'>888
@@ -42,10 +47,5 @@ const threeDigitStr = milliseconds => {
     const text = seconds.toString().padStart(3,0);
     return text;
 }
-
- Timer.propTypes = {
-   startTime: PropTypes.number,
-   isRunning: PropTypes.bool
-};
 
 export default Timer;

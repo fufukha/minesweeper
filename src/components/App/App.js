@@ -58,9 +58,7 @@ const App = () => {
 
     return (
       <div onMouseUp={releaseTile}>
-        <Timer
-            startTime={startTime}
-            isRunning={hasStarted && !isWinState && !isLoseState}/>
+        <Timer/>
         <Face
             icon={getFaceExpression(isWinState, isLoseState, isTilePressed)}/>
         <FlagCounter
