@@ -1,10 +1,11 @@
+import newDisplayed from './newDisplayed';
 
 const initialState = {
     flagged: {},
     displayed: {}
 }
 
-const tileReducer = (state=initialState, action) => {
+const tileReducer = (state=initialState, action, {mines, rows, columns}) => {
         if(['TOGGLE_FLAG', 'DISPLAY_TILE'].includes(action.type)) {
             const { row, column } = action.payload;
 
@@ -18,7 +19,7 @@ const tileReducer = (state=initialState, action) => {
             case 'DISPLAY_TILE':
                 return {
                     ...state,
-                    displayed: addNestedProp(state.displayed, row, column, true)
+                    displayed: newDisplayed(state.displayed, mines, rows, columns, row, column)
                 }
         }
     }
