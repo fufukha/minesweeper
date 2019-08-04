@@ -1,22 +1,44 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import isWinStateSelector from '../../selectors/isWinState';
+import isLoseStateSelector from '../../selectors/isLoseState';
+import {
+    toggleFlag as toggleFlagAction,
+    displayTile as displayTileAction,
+    pressTile as pressTileAction,
+    releaseTile as releaseTileAction
+} from '../../actions/tileActions';
 import PropTypes from "prop-types";
 import './tile.css';
 import classnames from 'classnames';
 
-const Tile = ({ data, onClick, onRightClick, onMouseDown, onMouseUp, isDisabled }) => {
+const Tile = ({ index }) => {
+    const dispatch = useDispatch();
+    const mines = useSelector(state => state.board.mines);
+    const tiles = useSelector(state => state.tiles);
+    const isWinState = useSelector(isWinStateSelector);
+    const isLoseState = useSelector(isLoseStateSelector);
+    const lastClickedTile = useSelector(state => state.lastClickedTile);
+    const pressTile = () => dispatch(pressTileAction());
+    const releaseTile = () => dispatch(releaseTileAction());
+    const toggleFlag = () => dispatch(toggleFlagAction(index[0], index[1]));
+    const displayTile = () => dispatch(displayTileAction(index[0], index[1]));
+    const isDisabled = isWinState || isLoseState;
+    const data = getData(mines, tiles, index, isLoseState, lastClickedTile);
+
     const handleOnClick = (e) => {
         e.preventDefault();
-        !isDisabled && data.status === 'hidden' && onClick();
+        !isDisabled && data.status === 'hidden' && displayTile();
     }
 
     const handleOnRightClick = (e) => {
         e.preventDefault();
-        !isDisabled && onRightClick();
+        !isDisabled && toggleFlag();
     }
 
     const handleOnMouseDown = (e) => {
         e.preventDefault();
-        onMouseDown();
+        pressTile();
     }
 
     return  (
@@ -25,10 +47,59 @@ const Tile = ({ data, onClick, onRightClick, onMouseDown, onMouseUp, isDisabled 
             onClick={handleOnClick}
             onContextMenu={handleOnRightClick}
             onMouseDown={handleOnMouseDown}
-            onMouseUp={onMouseUp}>
+            onMouseUp={() => releaseTile()}>
             {getValue(data)}
         </div>
     )
+}
+
+export default Tile;
+
+const getData = (mines, tiles, [row, column], isLoseState, lastClickedTile) => {
+    const { flagged, displayed } = tiles;
+    let data = {}
+    if(valueAt(displayed, row, column)) {
+        if(valueAt(mines, row, column)) {
+            if(lastClickedTile.row === row && lastClickedTile.column === column && isLoseState) {
+                data.status = 'displayRedBomb';
+            } else {
+                data.status = 'displayBomb';
+            }
+        } else {
+            data.status = 'displayCount';
+        }
+    } else {
+        if(valueAt(flagged, row, column)) {
+            data.status = 'flagged';
+            if(!valueAt(mines, row, column) && isLoseState) {
+                data.status = 'displayFalseFlag'
+            }
+        } else if(valueAt(mines, row, column) && isLoseState) {
+                data.status = 'displayBomb';
+        } else {
+            data.status = 'hidden';
+        }
+    }
+
+    if(data.status === 'displayCount') {
+        data.peripheralCount = peripheralCount(mines, row, column);
+    }
+    return data
+}
+
+const peripheralCount = (mines, i, j) => {
+  let count = 0;
+
+  if(mines[i - 1] && mines[i - 1][j]) count++
+  if(mines[i + 1] && mines[i + 1][j]) count++
+  if(mines[i] && mines[i][j - 1]) count++
+  if(mines[i] && mines[i][j + 1]) count++
+  if(mines[i - 1] && mines[i - 1][j - 1]) count++
+  if(mines[i - 1] && mines[i - 1][j + 1]) count++
+  if(mines[i + 1] && mines[i + 1][j - 1]) count++
+  if(mines[i + 1] && mines[i + 1][j + 1]) count++
+
+  return count;
 }
 
 const getClassName = (data) => {
@@ -48,13 +119,8 @@ const getValue = (data) => {
     if(status === 'hidden') return '';
 }
 
-export default Tile;
+const valueAt = (object, i, j) =>  Boolean(object[i] && object[i][j]);
 
 Tile.propTypes = {
-  data: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
-  onRightClick: PropTypes.func.isRequired,
-  onMouseDown: PropTypes.func.isRequired,
-  onMouseUp: PropTypes.func.isRequired,
-  isDisabled: PropTypes.bool.isRequired
+  index: PropTypes.array.isRequired,
 };
