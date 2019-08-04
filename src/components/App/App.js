@@ -17,7 +17,6 @@ import './app.css';
 
 const App = () => {
     const dispatch = useDispatch();
-    const { startTime, hasStarted } = useSelector(state => state.status);
     const { flagged, displayed } = useSelector(state => state.tiles);
     const mines = useSelector(state => state.board.mines);
     const board = useSelector(state => state.board);
