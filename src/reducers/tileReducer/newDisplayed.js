@@ -11,7 +11,7 @@ const newDisplayed = (displayed, mines, rows, columns, row, column) => {
         set(result, currentTile, true);
 
         if(peripheralCount(mines, currentTile) === 0){
-            const neighbors = getNeighbors([row, column], rows, columns, mines, visited);
+            const neighbors = getNeighbors(currentTile, rows, columns, mines, visited);
             neighbors.forEach((neighbor) => {
                 set(visited, neighbor, true);
                 queue.push(neighbor);
