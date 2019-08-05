@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styles from './tile.css';
 
-const Tile = ({ index }) => {
+const Tile = ({ index:[i, j] }) => {
   const dispatch = useDispatch();
   const mines = useSelector(state => state.board.mines);
   const tiles = useSelector(state => state.tiles);
@@ -21,10 +21,10 @@ const Tile = ({ index }) => {
   const lastClickedTile = useSelector(state => state.lastClickedTile);
   const pressTile = () => dispatch(pressTileAction());
   const releaseTile = () => dispatch(releaseTileAction());
-  const toggleFlag = () => dispatch(toggleFlagAction(index[0], index[1]));
-  const displayTile = () => dispatch(displayTileAction(index[0], index[1]));
+  const toggleFlag = () => dispatch(toggleFlagAction(i, j));
+  const displayTile = () => dispatch(displayTileAction(i, j));
   const isDisabled = isWinState || isLoseState;
-  const data = getData(mines, tiles, index, isLoseState, lastClickedTile);
+  const data = getData(mines, tiles, [i, j], isLoseState, lastClickedTile);
 
   const handleOnClick = e => {
     e.preventDefault();
