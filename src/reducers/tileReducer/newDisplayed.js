@@ -10,16 +10,14 @@ const newDisplayed = (displayed, mines, rows, columns, index, flagged) => {
     const currentTile = queue.shift();
 
     set(result, currentTile, true);
-    if (!get(mines, currentTile)) {
-      if (peripheralCount(mines, currentTile) === 0){
-        const neighbors = getNeighbors(currentTile, rows, columns,
-          mines, flagged, visited);
+    if (!get(mines, currentTile) && peripheralCount(mines, currentTile) === 0){
+      const neighbors = getNeighbors(currentTile, rows, columns,
+        mines, flagged, visited);
 
-        neighbors.forEach(neighbor => {
-          set(visited, neighbor, true);
-          queue.push(neighbor);
-        });
-      }
+      neighbors.forEach(neighbor => {
+        set(visited, neighbor, true);
+        queue.push(neighbor);
+      });
     }
   }
   return result;
