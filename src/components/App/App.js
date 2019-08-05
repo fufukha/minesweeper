@@ -6,7 +6,7 @@ import Timer from '../Timer/Timer';
 import Face from '../Face/Face';
 import FlagCounter from '../FlagCounter/FlagCounter';
 import Tile from '../Tile/Tile';
-import './app.css';
+import styles from './app.css';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const App = () => {
       <Timer/>
       <Face />
       <FlagCounter />
-      <div className='tilesBoard_default'>{tiles}</div>
+      <div className={styles.tilesBoard_default}>{tiles}</div>
     </div>
   );
 }

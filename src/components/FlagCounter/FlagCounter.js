@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import useEffectSkipFirst from './useEffectSkipFirst';
-import './flagCounter.css'
+import styles from './flagCounter.css';
 
 const FlagCounter = () => {
   const flags = useSelector(state => state.tiles.flagged);
@@ -16,7 +16,7 @@ const FlagCounter = () => {
   }, [flags, mines]);
 
   return (
-    <div className='flagCounter'>888
+    <div className={styles.flagCounter}>888
       <div>{flagCounterText}</div>
     </div>
   );

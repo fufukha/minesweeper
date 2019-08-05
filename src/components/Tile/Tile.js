@@ -9,8 +9,8 @@ import {
   releaseTile as releaseTileAction
 } from '../../actions/tileActions';
 import PropTypes from 'prop-types';
-import './tile.css';
 import classnames from 'classnames';
+import styles from './tile.css';
 
 const Tile = ({ index }) => {
   const dispatch = useDispatch();
@@ -44,10 +44,11 @@ const Tile = ({ index }) => {
   return  (
     <div
       className={classnames(
-        'tile',
-        getClassName(data),
-        { red: data.status === 'displayRedBomb'
+        styles.tile,
+        styles[getClassName(data)],
+        { [styles.red]: data.status === 'displayRedBomb',
         })}
+      style={{ color: countColors[data.peripheralCount] }}
       onClick={handleOnClick}
       onContextMenu={handleOnRightClick}
       onMouseDown={handleOnMouseDown}
@@ -58,6 +59,17 @@ const Tile = ({ index }) => {
 }
 
 export default Tile;
+
+const countColors = {
+  1: '#2929fe',
+  2: '#2b942a',
+  3: '#ff0000',
+  4: '#292994',
+  5: '#800000',
+  6: '#2a9494',
+  7: '#000000',
+  8: '#808080'
+}
 
 const getData = (mines, tiles, [row, column], isLoseState, lastClickedTile) => {
   const { flagged, displayed } = tiles;

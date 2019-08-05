@@ -1,20 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Literata:700&display=swap');
 
-:root {
-    --base: rgb(214, 210, 210);
-    --darkAccent: rgb(141, 130, 130);
-    --lightAccent: #ffffff;
+div {
+  --base: rgb(214, 210, 210);
+  --darkAccent: rgb(141, 130, 130);
+  --lightAccent: #ffffff;
+  --red: #ff0000;
 }
 
 .tile {
-    box-sizing: border-box;
-    width: 20px;
-    height: 20px;
-    background: var(--base);
-    text-align: center;
-    font-family: 'Literata', sans;
-    font-size: 16px;
-    line-height: 16px;
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  background: var(--base);
+  text-align: center;
+  font-family: 'Literata', sans;
+  font-size: 16px;
+  line-height: 16px;
 }
 
 .hide {

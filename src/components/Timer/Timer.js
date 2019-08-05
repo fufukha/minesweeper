@@ -4,7 +4,7 @@ import useInterval from './useInterval';
 import useEffectSkipFirst from './useEffectSkipFirst';
 import isWinStateSelector from '../../selectors/isWinState';
 import isLoseStateSelector from '../../selectors/isLoseState';
-import './timer.css';
+import styles from './timer.css';
 
 const Timer = () => {
   const { startTime, hasStarted } = useSelector(state => state.status);
@@ -26,7 +26,7 @@ const Timer = () => {
   }, [hasStarted, isLoseState, isWinState])
 
   return (
-    <div className='timer'>888
+    <div className={styles.timer}>888
       <div>{timerText}</div>
     </div>
   );
