@@ -2,7 +2,7 @@ const newDisplayed = (displayed, mines, rows, columns, index, flagged) => {
   const [ row, column ] = index;
   let result =  copy(displayed);
   let queue = [[row, column]];
-  let visited = {} // {row: {column: bool}}
+  let visited = {}
 
   set(result, [row, column], true);
 
@@ -10,15 +10,16 @@ const newDisplayed = (displayed, mines, rows, columns, index, flagged) => {
     const currentTile = queue.shift();
 
     set(result, currentTile, true);
+    if (!get(mines, currentTile)) {
+      if (peripheralCount(mines, currentTile) === 0){
+        const neighbors = getNeighbors(currentTile, rows, columns,
+          mines, flagged, visited);
 
-    if (peripheralCount(mines, currentTile) === 0){
-      const neighbors = getNeighbors(currentTile, rows, columns,
-        mines, flagged, visited);
-
-      neighbors.forEach(neighbor => {
-        set(visited, neighbor, true);
-        queue.push(neighbor);
-      });
+        neighbors.forEach(neighbor => {
+          set(visited, neighbor, true);
+          queue.push(neighbor);
+        });
+      }
     }
   }
   return result;
