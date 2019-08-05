@@ -23,7 +23,16 @@ const Grid = () => {
   }, [dispatch]);
 
   return (
-    <div className={styles.tilesBoard_default}>{tiles}</div>
+    <div
+      className={styles.tilesBoard_default}
+      style={
+        {
+          'grid-template-rows': `repeat(${rows}, 1fr)`,
+          'grid-template-columns': `repeat(${columns}, 1fr)`
+        }
+      }>
+      {tiles}
+    </div>
   );
 }
 
