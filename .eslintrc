@@ -23,7 +23,15 @@
         "no-console": 0,
         "eol-last": ["error", "always"],
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn"
+        "react-hooks/exhaustive-deps": "warn",
+        "quotes": ["error", "single", { "avoidEscape": true }],
+        "keyword-spacing": ["error", { "after" : true }],
+        "indent": ["error", 2],
+        "object-curly-spacing": ["error", "always", { "objectsInObjects": false }],
+        "arrow-spacing": "error",
+        "arrow-parens": ["error", "as-needed"],
+        "max-len": ["error", { "code": 80 }],
+        "eqeqeq": ["error", "smart"]
     },
     "settings": {
         "react": {

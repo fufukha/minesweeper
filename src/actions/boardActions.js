@@ -1,49 +1,49 @@
 const defaultConfig = {
-    rows: 9,
-    columns: 9,
-    numOfMines: 10
+  rows: 9,
+  columns: 9,
+  numOfMines: 10
 }
 
-export const configureBoard = (config) => {
-    return {
-        type: 'CONFIGURE_BOARD',
-        payload: {
-            rows: config.rows,
-            columns: config.columns,
-            mines: randomIndices(config.rows, config.columns, config.numOfMines)
-        }
+export const configureBoard = config => {
+  return {
+    type: 'CONFIGURE_BOARD',
+    payload: {
+      rows: config.rows,
+      columns: config.columns,
+      mines: randomIndices(config.rows, config.columns, config.numOfMines)
     }
+  }
 }
 
 export const initializeBoard = (config=defaultConfig) => {
-    return {
-        type: 'INITIALIZE_BOARD',
-        payload: {
-            rows: config.rows,
-            columns: config.columns,
-            mines: randomIndices(config.rows, config.columns, config.numOfMines)
-        }
+  return {
+    type: 'INITIALIZE_BOARD',
+    payload: {
+      rows: config.rows,
+      columns: config.columns,
+      mines: randomIndices(config.rows, config.columns, config.numOfMines)
     }
+  }
 }
 
 function randomIndices(rows, columns, numberOfIndices) {
-    let count = numberOfIndices + 1;
-    const randomIndices = {};
+  let count = numberOfIndices + 1;
+  const randomIndices = {};
 
-    while(--count) {
-        const i = randomInteger(rows);
-        const j = randomInteger(columns);
+  while (--count) {
+    const i = randomInteger(rows);
+    const j = randomInteger(columns);
 
-        if(randomIndices[i] && randomIndices[i][j]) {
-			count++;
-		} else {
-			if(randomIndices[i] === undefined) randomIndices[i] = {};
-			randomIndices[i][j] = true;
-		}
+    if (randomIndices[i] && randomIndices[i][j]) {
+      count++;
+    } else {
+      if (randomIndices[i] === undefined) randomIndices[i] = {};
+      randomIndices[i][j] = true;
     }
-    return randomIndices;
+  }
+  return randomIndices;
 }
 
 function randomInteger(max) {
-    return Math.floor(Math.random() * max);
+  return Math.floor(Math.random() * max);
 }

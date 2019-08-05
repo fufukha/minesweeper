@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 const useEffectSkipFirst = (fn, arr=[]) => {
   const isFirst = useRef(true);
