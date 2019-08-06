@@ -1,9 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { releaseTile as releaseTileAction } from '../../actions/tileActions';
-import Timer from '../Timer/Timer';
-import Face from '../Face/Face';
-import FlagCounter from '../FlagCounter/FlagCounter';
+import Scoreboard from '../Scoreboard/Scoreboard';
 import Grid from '../Grid/Grid';
 
 const App = () => {
@@ -11,10 +9,10 @@ const App = () => {
   const releaseTile = () => dispatch(releaseTileAction());
 
   return (
-    <div onMouseUp={releaseTile}>
-      <Timer/>
-      <Face />
-      <FlagCounter />
+    <div
+      className={styles.container}
+      onMouseUp={releaseTile}>
+      <Scoreboard />
       <Grid />
     </div>
   );
