@@ -20,8 +20,8 @@ div {
 }
 
 .hide {
-    border: 2px solid;
-    border-color: var(--lightAccent) var(--darkAccent) var(--darkAccent) var(--lightAccent);
+  border: 2px solid;
+  border-color: var(--lightAccent) var(--darkAccent) var(--darkAccent) var(--lightAccent);
 }
 
 .display {
@@ -31,4 +31,9 @@ div {
 
 .red {
     background: var(--red);
+}
+
+.emoji {
+  padding-left: 2px;
+  padding-top: 2px;
 }
