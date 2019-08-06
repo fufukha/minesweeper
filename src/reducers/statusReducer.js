@@ -14,6 +14,8 @@ const statusReducer = (state=initialState, action) => {
         hasStarted: true,
       }
     }
+  } else if (action.type === 'INITIALIZE_GAME') {
+    return initialState;
   } else {
     return state;
   }

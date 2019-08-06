@@ -3,7 +3,8 @@ export const toggleFlag = (i, j) => {
     type: 'TOGGLE_FLAG',
     payload: {
       row: i,
-      column: j
+      column: j,
+      clickTime: new Date().getTime()
     }
   }
 }
@@ -13,7 +14,8 @@ export const displayTile = (i, j) => {
     type: 'DISPLAY_TILE',
     payload: {
       row: i,
-      column: j
+      column: j,
+      clickTime: new Date().getTime()
     }
   }
 }

@@ -15,9 +15,9 @@ export const configureBoard = config => {
   }
 }
 
-export const initializeBoard = (config=defaultConfig) => {
+export const initializeGame = (config=defaultConfig) => {
   return {
-    type: 'INITIALIZE_BOARD',
+    type: 'INITIALIZE_GAME',
     payload: {
       rows: config.rows,
       columns: config.columns,

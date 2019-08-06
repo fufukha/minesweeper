@@ -7,7 +7,7 @@ const initialState = {
 
 const boardReducer = (state=initialState, action) => {
   switch (action.type) {
-  case 'INITIALIZE_BOARD':
+  case 'INITIALIZE_GAME':
     return {
       ...state.board,
       rows: action.payload.rows,

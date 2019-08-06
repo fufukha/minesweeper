@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { initializeBoard } from '../../actions/boardActions';
+import { initializeGame } from '../../actions/boardActions';
 import Tile from '../Tile/Tile';
 import styles from './grid.css';
 
@@ -19,7 +19,7 @@ const Grid = () => {
     );
 
   useEffect(() => {
-    dispatch(initializeBoard());
+    dispatch(initializeGame());
   }, [dispatch]);
 
   return (
@@ -27,8 +27,8 @@ const Grid = () => {
       className={styles.tilesBoard_default}
       style={
         {
-          'grid-template-rows': `repeat(${rows}, 1fr)`,
-          'grid-template-columns': `repeat(${columns}, 1fr)`
+          'gridTemplateRows': `repeat(${rows}, 1fr)`,
+          'gridTemplateColumns': `repeat(${columns}, 1fr)`
         }
       }>
       {tiles}

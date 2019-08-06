@@ -6,6 +6,8 @@ const tilePressedReducer = (state=initialState, action) => {
     return true;
   case 'RELEASE_TILE':
     return false;
+  case 'INITIALIZE_GAME':
+    return initialState;
   }
   return state;
 }

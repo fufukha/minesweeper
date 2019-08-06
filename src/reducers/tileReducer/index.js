@@ -23,6 +23,8 @@ const tileReducer = (state=initialState, action, { mines, rows, columns }) => {
           columns, [row, column], state.flagged)
       }
     }
+  } else if (action.type === 'INITIALIZE_GAME') {
+    return initialState;
   }
   return state
 }
