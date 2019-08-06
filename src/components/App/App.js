@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { releaseTile as releaseTileAction } from '../../actions/tileActions';
 import Scoreboard from '../Scoreboard/Scoreboard';
 import Grid from '../Grid/Grid';
+import styles from './app.css';
 
 const App = () => {
   const dispatch = useDispatch();

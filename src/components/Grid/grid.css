@@ -1,5 +1,11 @@
+div {
+  --base: rgb(214, 210, 210);
+  --darkAccent: rgb(141, 130, 130);
+  --lightAccent: #ffffff;
+}
+
 .tilesBoard_default {
   display: grid;
-  width: 60px;
-  height: 60px;
+  border: 2px solid;
+  border-color: var(--darkAccent) var(--lightAccent) var(--lightAccent) var(--darkAccent);
 }

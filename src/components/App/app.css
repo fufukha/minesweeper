@@ -1,0 +1,14 @@
+div {
+  --base: rgb(214, 210, 210);
+  --darkAccent: rgb(141, 130, 130);
+  --lightAccent: #ffffff;
+}
+
+.container {
+  background: var(--base);
+  padding: 3px;
+  border: 2px solid;
+  border-color: var(--lightAccent) var(--darkAccent) var(--darkAccent) var(--lightAccent);
+  display: inline-grid;
+  grid-row-gap: 3px
+}

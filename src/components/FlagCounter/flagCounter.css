@@ -9,7 +9,7 @@ div {
 
 .flagCounter {
   background: var(--redDarker);
-  border: 3px inset var(--redMedium);
+  border: 2px inset var(--redMedium);
   color: var(--redDark);
   position: relative;
   width: 50px;
