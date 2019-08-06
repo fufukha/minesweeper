@@ -6,9 +6,9 @@ div {
 
 .container {
   background: var(--base);
-  padding: 3px;
+  padding: 10px;
   border: 2px solid;
   border-color: var(--lightAccent) var(--darkAccent) var(--darkAccent) var(--lightAccent);
   display: inline-grid;
-  grid-row-gap: 3px
+  grid-row-gap: 10px;
 }
