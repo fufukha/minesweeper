@@ -61,7 +61,7 @@ module.exports = {
           viewpoint: 'width=device-width, initial-scale=1',
           charset: 'utf-8'
       },
-      template: 'src/template.html'
+      template: './src/template.html'
     })
   ]
 }

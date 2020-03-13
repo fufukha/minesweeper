@@ -10,7 +10,7 @@ module.exports = {
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/static/'
+    publicPath: ''
   },
   mode: 'production',
   optimization: {
@@ -61,13 +61,13 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'minesweeper.html',
-      chunks: ['minesweeper'],
+      chunks: ['minesweeper', 'vendors_minesweeper'],
       title: 'Hello world',
       meta: {
         viewpoint: 'width=device-width, initial-scale=1',
         charset: 'utf-8'
       },
-      template: 'src/template.html'
+      template: './src/template.html'
     })
   ]
 };
