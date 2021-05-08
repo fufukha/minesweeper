@@ -1,5 +1,4 @@
-# minesweeper
-💣 Minesweeper
+# 💣 Minesweeper
 
 Minesweeper was built to using [React](https://reactjs.org/) and  [Redux](https://redux.js.org/) for managing state and using selectors.
 https://fufukha.github.io/minesweeper/
